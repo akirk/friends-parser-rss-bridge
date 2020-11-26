@@ -106,11 +106,13 @@ class Friends_Feed_Parser_RSS_Bridge extends Friends_Feed_Parser {
 		if ( false === $bridge ) {
 			return $feed_details;
 		}
+		$bridge_name = substr( get_class( $bridge ), 19, -6 );
 
 		$bridge_params = $bridge->detectParameters( $feed_details['url'] );
 		if ( is_null( $bridge_params ) ) {
 			return $feed_details;
 		}
+		$feed_details['type'] = 'application/rss-bridge-' . strtolower( $bridge_name );
 
 		$bridge->setDatas( $bridge_params );
 
@@ -118,7 +120,7 @@ class Friends_Feed_Parser_RSS_Bridge extends Friends_Feed_Parser {
 			$feed_details['title'] = $bridge->getName();
 		}
 
-		$feed_details['post-format'] = $this->get_post_format( substr( get_class( $bridge ), 19, -6 ) );
+		$feed_details['post-format'] = $this->get_post_format( $bridge_name );
 
 		return $feed_details;
 	}
