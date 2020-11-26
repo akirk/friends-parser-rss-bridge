@@ -1,0 +1,3 @@
+[submodule "libs/rss-bridge"]
+	path = libs/rss-bridge
+	url = git@github.com:akirk/rss-bridge.git
