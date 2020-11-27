@@ -1,0 +1,9 @@
+{
+	"name": "akirk/friends-parser-rss-bridge",
+	"require-dev": {
+		"squizlabs/php_codesniffer": "*",
+		"wp-coding-standards/wpcs": "*",
+		"dealerdirect/phpcodesniffer-composer-installer": "^0.7.0"
+	},
+	"prefer-stable" : true
+}
