@@ -16,6 +16,8 @@
  * @author Alex Kirk
  */
 class Friends_Feed_Parser_RSS_Bridge extends Friends_Feed_Parser {
+	const NAME = 'RSS Bridge';
+	const URL = 'https://github.com/akirk/friends-parser-rss-bridge'; // referencing the fork to better explain where the code is coming from.
 	/**
 	 * Cache for bridge parameters.
 	 *
@@ -98,7 +100,7 @@ class Friends_Feed_Parser_RSS_Bridge extends Friends_Feed_Parser {
 				continue;
 			}
 			$bridge_params = $bridge->detectParameters( $url );
-			print_r( $bridge_params );
+
 			if ( is_null( $bridge_params ) ) {
 				continue;
 			}
