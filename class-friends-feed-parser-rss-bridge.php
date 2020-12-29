@@ -47,7 +47,7 @@ class Friends_Feed_Parser_RSS_Bridge extends Friends_Feed_Parser {
 	 */
 	public function feed_support_confidence( $url, $mime_type, $title ) {
 		if ( $this->get_bridge( $url ) ) {
-			return 10;
+			return get_option( 'friends-parser-rss-bridge_confidence', 10 );
 		}
 
 		return 0;
@@ -225,6 +225,8 @@ class Friends_Feed_Parser_RSS_Bridge extends Friends_Feed_Parser {
 		switch ( $bridge_name ) {
 			case 'Twitter':
 				return 'status';
+			case 'Dilbert':
+				return 'image';
 		}
 
 		return 'standard';
