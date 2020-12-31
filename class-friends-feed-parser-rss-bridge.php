@@ -39,13 +39,14 @@ class Friends_Feed_Parser_RSS_Bridge extends Friends_Feed_Parser {
 	/**
 	 * Determines if this is a supported feed and to what degree we feel it's supported.
 	 *
-	 * @param      string $url        The url.
-	 * @param      string $mime_type  The mime type.
-	 * @param      string $title      The title.
+	 * @param      string      $url        The url.
+	 * @param      string      $mime_type  The mime type.
+	 * @param      string      $title      The title.
+	 * @param      string|null $content    The content, it can't be assumed that it's always available.
 	 *
 	 * @return     int  Return 0 if unsupported, a positive value representing the confidence for the feed, use 10 if you're reasonably confident.
 	 */
-	public function feed_support_confidence( $url, $mime_type, $title ) {
+	public function feed_support_confidence( $url, $mime_type, $title, $content = null ) {
 		if ( $this->get_bridge( $url ) ) {
 			return get_option( 'friends-parser-rss-bridge_confidence', 10 );
 		}
@@ -264,12 +265,15 @@ class Friends_Feed_Parser_RSS_Bridge extends Friends_Feed_Parser {
 		foreach ( $bridge->getItems() as $item ) {
 			$item = new RSS_Bridge\FeedItem( (object) $item );
 
-			$feed_item       = (object) array(
-				'permalink'   => $item->getURI(),
-				'title'       => $item->getTitle(),
-				'content'     => $item->getContent(),
-				'post-format' => $item->getPostFormat(),
+			$feed_item = new Friends_Feed_Item(
+				array(
+					'permalink'   => $item->getURI(),
+					'title'       => $item->getTitle(),
+					'content'     => $item->getContent(),
+					'post_format' => $item->getPostFormat(),
+				)
 			);
+
 			$feed_item->date = gmdate( 'Y-m-d H:i:s', $item->getTimestamp() );
 
 			$feed_items[] = $feed_item;

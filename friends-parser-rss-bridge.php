@@ -103,6 +103,9 @@ function friends_parser_rss_bridge_about_page( $display_about_friends = false ) 
 			if ( ! class_exists( 'Friends_Feed_Parser' ) ) {
 				require_once __DIR__ . '/class-friends-feed-parser.php';
 			}
+			if ( ! class_exists( 'Friends_Feed_Item' ) ) {
+				require_once __DIR__ . '/class-friends-feed-item.php';
+			}
 			require_once __DIR__ . '/class-friends-feed-parser-rss-bridge.php';
 		}
 		$parser = new Friends_Feed_Parser_RSS_Bridge;
@@ -149,6 +152,9 @@ function friends_parser_rss_bridge_tester() {
 		if ( ! class_exists( 'Friends_Feed_Parser_RSS_Bridge' ) ) {
 			if ( ! class_exists( 'Friends_Feed_Parser' ) ) {
 				require_once __DIR__ . '/class-friends-feed-parser.php';
+			}
+			if ( ! class_exists( 'Friends_Feed_Item' ) ) {
+				require_once __DIR__ . '/class-friends-feed-item.php';
 			}
 			require_once __DIR__ . '/class-friends-feed-parser-rss-bridge.php';
 		}
