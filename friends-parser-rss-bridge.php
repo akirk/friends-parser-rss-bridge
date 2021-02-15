@@ -3,7 +3,7 @@
  * Plugin name: Friends Parser RSS-Bridge
  * Plugin author: Alex Kirk
  * Plugin URI: https://github.com/akirk/friends-parser-rss-bridge
- * Version: 1.0
+ * Version: 1.0.1
  *
  * Description: Provides the parsing capabilities of RSS Bridge.
  *

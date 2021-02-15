@@ -61,7 +61,6 @@ class Friends_Feed_Parser_RSS_Bridge extends Friends_Feed_Parser {
 	 * @return RSS_Bridge|false  The bridge factory.
 	 */
 	private function get_bridge_factory() {
-		global $path_lib_bridges;
 		static $bridge_factory;
 
 		if ( ! $this->enabled ) {
