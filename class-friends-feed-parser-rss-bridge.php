@@ -74,6 +74,8 @@ class Friends_Feed_Parser_RSS_Bridge extends Friends_Feed_Parser {
 
 		include_once __DIR__ . '/libs/rss-bridge/lib/rssbridge.php';
 
+		require ABSPATH . WPINC . '/version.php';
+		ini_set( 'user_agent', 'WordPress/' . $wp_version . '; ' . home_url( '/' ) . '; Friends/' . Friends::VERSION );
 		try {
 			RSS_Bridge\Configuration::verifyInstallation();
 			RSS_Bridge\Configuration::loadConfiguration();
