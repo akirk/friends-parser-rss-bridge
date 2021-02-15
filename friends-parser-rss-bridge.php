@@ -5,7 +5,7 @@
  * Plugin URI: https://github.com/akirk/friends-parser-rss-bridge
  * Version: 1.0
  *
- * Description: View feeds for websites using RSS-Bridge and potentially support the Friends plugin with that.
+ * Description: Provides the parsing capabilities of RSS Bridge.
  *
  * License: GPL2
  * Text Domain: friends-parser-rss-bridge
@@ -15,7 +15,7 @@
  */
 
 /**
- * This file loads all the dependencies the Friends plugin.
+ * This file contains the main plugin functionality.
  */
 
 defined( 'ABSPATH' ) || exit;
