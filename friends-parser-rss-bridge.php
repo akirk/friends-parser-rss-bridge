@@ -3,13 +3,12 @@
  * Plugin name: Friends Parser RSS-Bridge
  * Plugin author: Alex Kirk
  * Plugin URI: https://github.com/akirk/friends-parser-rss-bridge
- * Version: 1.0.2
+ * Version: 1.0.3
  *
  * Description: Provides the parsing capabilities of RSS Bridge.
  *
  * License: GPL2
- * Text Domain: friends-parser-rss-bridge
- * Domain Path: /languages/
+ * Text Domain: friends
  *
  * @package Friends_Parser_RSS_Bridge
  */
@@ -39,7 +38,7 @@ function friends_parser_rss_bridge_about_page( $display_about_friends = false ) 
 		update_option( 'friends-parser-rss-bridge_confidence', intval( $_POST['default_confidence'] ) );
 	}
 
-	?><h1><?php _e( 'Friends Parser RSS Bridge', 'friends-parser-rss-bridge' ); ?></h1>
+	?><h1><?php _e( 'Friends Parser RSS Bridge', 'friends' ); ?></h1>
 
 	<form method="post">
 		<?php wp_nonce_field( $nonce_value ); ?>
@@ -61,7 +60,7 @@ function friends_parser_rss_bridge_about_page( $display_about_friends = false ) 
 			</tbody>
 		</table>
 		<p class="submit">
-			<input type="submit" id="submit" class="button button-primary" value="<?php esc_html_e( 'Save Changes', 'friends-parser-rss-bridge' ); ?>">
+			<input type="submit" id="submit" class="button button-primary" value="<?php esc_html_e( 'Save Changes', 'friends' ); ?>">
 		</p>
 	</form>
 
@@ -70,7 +69,7 @@ function friends_parser_rss_bridge_about_page( $display_about_friends = false ) 
 			<?php
 			echo wp_kses(
 				// translators: %s: URL to the Friends Plugin page on WordPress.org.
-				sprintf( __( 'The Friends plugin is all about connecting with friends and news. Learn more on its <a href=%s>plugin page on WordPress.org</a>.', 'friends-parser-rss-bridge' ), '"https://wordpress.org/plugins/friends" target="_blank" rel="noopener noreferrer"' ),
+				sprintf( __( 'The Friends plugin is all about connecting with friends and news. Learn more on its <a href=%s>plugin page on WordPress.org</a>.', 'friends' ), '"https://wordpress.org/plugins/friends" target="_blank" rel="noopener noreferrer"' ),
 				array(
 					'a' => array(
 						'href'   => array(),
@@ -86,7 +85,7 @@ function friends_parser_rss_bridge_about_page( $display_about_friends = false ) 
 	<?php
 	echo wp_kses(
 		// translators: %s: URL to the RSS Bridge.
-		sprintf( __( 'This parser is powered by the open source project <a href=%s>RSS Bridge</a> and provides support to parse the following properties:', 'friends-parser-rss-bridge' ), '"https://github.com/RSS-Bridge/rss-bridge" target="_blank" rel="noopener noreferrer"' ),
+		sprintf( __( 'This parser is powered by the open source project <a href=%s>RSS Bridge</a> and provides support to parse the following properties:', 'friends' ), '"https://github.com/RSS-Bridge/rss-bridge" target="_blank" rel="noopener noreferrer"' ),
 		array(
 			'a' => array(
 				'href'   => array(),
@@ -138,14 +137,14 @@ function friends_parser_rss_bridge_tester() {
 		}
 	}
 	?>
-	<h1><?php _e( 'RSS Bridge Tester', 'friends-parser-rss-bridge' ); ?></h1>
-	<p><?php _e( 'Here you can test what the parser makes of the URL you give it. ', 'friends-parser-rss-bridge' ); ?></h1>
+	<h1><?php _e( 'RSS Bridge Tester', 'friends' ); ?></h1>
+	<p><?php _e( 'Here you can test what the parser makes of the URL you give it. ', 'friends' ); ?></h1>
 
 	<form>
 		<input type="hidden" name="page" value="<?php echo esc_attr( $_GET['page'] ); ?>">
 		<?php wp_nonce_field( 'friends_parser_rss_bridge_tester', '_wpnonce', false ); ?>
-		<label><?php _e( 'Enter a URL:', 'friends-parser-rss-bridge' ); ?> <input type="text" name="url" value="<?php echo esc_attr( $url ); ?>" placeholer="https://" autofocus /></label>
-		<input type="submit" class="button button-primary" value="<?php echo esc_attr_x( 'Parse Now', 'button', 'friends-parser-rss-bridge' ); ?>" />
+		<label><?php _e( 'Enter a URL:', 'friends' ); ?> <input type="text" name="url" value="<?php echo esc_attr( $url ); ?>" placeholer="https://" autofocus /></label>
+		<input type="submit" class="button button-primary" value="<?php echo esc_attr_x( 'Parse Now', 'button', 'friends' ); ?>" />
 	</form>
 	<?php
 	if ( $url ) {
@@ -165,12 +164,12 @@ function friends_parser_rss_bridge_tester() {
 		<h2>
 			<?php
 			// translators: %s is a URL to be displayed verbatim.
-			echo esc_html( sprintf( __( 'Parsing Result for %s', 'friends-parser-rss-bridge' ), $url ) );
+			echo esc_html( sprintf( __( 'Parsing Result for %s', 'friends' ), $url ) );
 			?>
 		</h2>
 		<?php
 		if ( ! is_wp_error( $items ) && empty( $items ) ) {
-			$items = new WP_Error( 'empty-feed', __( "This feed doesn't contain any entries. There might be a problem parsing the feed.", 'friends-parser-rss-bridge' ) );
+			$items = new WP_Error( 'empty-feed', __( "This feed doesn't contain any entries. There might be a problem parsing the feed.", 'friends' ) );
 		}
 
 		if ( is_wp_error( $items ) ) {
@@ -181,13 +180,13 @@ function friends_parser_rss_bridge_tester() {
 			exit;
 		}
 		?>
-		<h3><?php _e( 'Parser Details', 'friends-parser-rss-bridge' ); ?></h3>
+		<h3><?php _e( 'Parser Details', 'friends' ); ?></h3>
 		<ul id="parser">
 			<li>
 				<?php
 				echo wp_kses(
 					// translators: %s is the name of a Bridge = specific parser.
-					sprintf( __( 'Using Bridge: %s', 'friends-parser-rss-bridge' ), '<a href="' . esc_url( $bridge::URI ) . '" target="_blank" rel="noopener noreferrer">' . $bridge::NAME . '</a>' ),
+					sprintf( __( 'Using Bridge: %s', 'friends' ), '<a href="' . esc_url( $bridge::URI ) . '" target="_blank" rel="noopener noreferrer">' . $bridge::NAME . '</a>' ),
 					array(
 						'a' => array(
 							'href'   => array(),
@@ -201,11 +200,11 @@ function friends_parser_rss_bridge_tester() {
 			<li>
 				<?php
 				// translators: %s is an explanation for the Bridge = specific parser.
-				echo esc_html( sprintf( __( 'Bridge Description: %s', 'friends-parser-rss-bridge' ), $bridge::DESCRIPTION ) );
+				echo esc_html( sprintf( __( 'Bridge Description: %s', 'friends' ), $bridge::DESCRIPTION ) );
 				?>
 			</li>
 		</ul>
-		<h3><?php _e( 'Items in the Feed', 'friends-parser-rss-bridge' ); ?></h3>
+		<h3><?php _e( 'Items in the Feed', 'friends' ); ?></h3>
 		<ul id="items">
 			<?php
 			foreach ( $items as $item ) {
@@ -227,18 +226,18 @@ add_action(
 		if ( $friends_settings_exist ) {
 			add_submenu_page(
 				'friends-settings',
-				__( 'Plugin: RSS Bridge', 'friends-parser-rss-bridge' ),
-				__( 'Plugin: RSS Bridge', 'friends-parser-rss-bridge' ),
+				__( 'RSS Bridge', 'friends' ),
+				__( 'RSS Bridge', 'friends' ),
 				'administrator',
 				'friends-rss-bridge',
 				'friends_parser_rss_bridge_about_page'
 			);
 		} else {
-			add_menu_page( 'friends', __( 'Friends', 'friends-parser-rss-bridge' ), 'administrator', 'friends-settings', null, 'dashicons-groups', 3.73 );
+			add_menu_page( 'friends', __( 'Friends', 'friends' ), 'administrator', 'friends-settings', null, 'dashicons-groups', 3.73 );
 			add_submenu_page(
 				'friends-settings',
-				__( 'About', 'friends-parser-rss-bridge' ),
-				__( 'About', 'friends-parser-rss-bridge' ),
+				__( 'About', 'friends' ),
+				__( 'About', 'friends' ),
 				'administrator',
 				'friends-settings',
 				'friends_parser_rss_bridge_about_page_with_friends_about'
@@ -248,8 +247,8 @@ add_action(
 		if ( apply_filters( 'friends_debug', false ) || ! $friends_settings_exist ) {
 			add_submenu_page(
 				'friends-settings',
-				__( 'RSS Bridge Tester', 'friends-parser-rss-bridge' ),
-				__( 'RSS Bridge Tester', 'friends-parser-rss-bridge' ),
+				__( 'RSS Bridge Tester', 'friends' ),
+				__( 'RSS Bridge Tester', 'friends' ),
 				'administrator',
 				'friends-rss-bridge-tester',
 				'friends_parser_rss_bridge_tester'
