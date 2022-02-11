@@ -7,8 +7,10 @@
  * @package Friends
  */
 
+namespace Friends;
+
 /**
 /**
  * This class describes a friends feed item.
  */
-class Friends_Feed_Item {}
+class Feed_Item {}

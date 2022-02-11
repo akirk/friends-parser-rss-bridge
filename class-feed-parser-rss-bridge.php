@@ -7,6 +7,8 @@
  * @package Friends_Parser_RSS_Bridge
  */
 
+namespace Friends;
+
 /**
  * This is the class for the Friends Parser RSS_Bridge.
  *
@@ -15,7 +17,7 @@
  * @package Friends_Parser_RSS_Bridge
  * @author  Alex Kirk
  */
-class Friends_Feed_Parser_RSS_Bridge extends Friends_Feed_Parser {
+class Feed_Parser_RSS_Bridge extends Feed_Parser {
 
 	const NAME = 'RSS Bridge';
 	const URL  = 'https://github.com/akirk/friends-parser-rss-bridge';
@@ -74,18 +76,18 @@ class Friends_Feed_Parser_RSS_Bridge extends Friends_Feed_Parser {
 		include_once __DIR__ . '/libs/rss-bridge/lib/rssbridge.php';
 
 		require ABSPATH . WPINC . '/version.php';
-		ini_set( 'user_agent', 'WordPress/' . $wp_version . '; ' . home_url( '/' ) . '; Friends/' . Friends::VERSION );
+		ini_set( 'user_agent', 'WordPress/' . $wp_version . '; ' . home_url( '/' ) . '; Friends/' . ( class_exists( 'Friends\Friends' ) ? Friends::VERSION : 'unknown' ) );
 		try {
-			RSS_Bridge\Configuration::verifyInstallation();
-			RSS_Bridge\Configuration::loadConfiguration();
-		} catch ( Exception $e ) {
+			\RSS_Bridge\Configuration::verifyInstallation();
+			\RSS_Bridge\Configuration::loadConfiguration();
+		} catch ( \Exception $e ) {
 			$this->enabled  = false;
 			$bridge_factory = false;
 			return $bridge_factory;
 		}
 
-		$bridge_factory = new RSS_Bridge\BridgeFactory();
-		$bridge_factory->setWorkingDir( RSS_Bridge\Constants::PATH_LIB_BRIDGES );
+		$bridge_factory = new \RSS_Bridge\BridgeFactory();
+		$bridge_factory->setWorkingDir( \RSS_Bridge\Constants::PATH_LIB_BRIDGES );
 
 		return $bridge_factory;
 	}
@@ -173,13 +175,13 @@ class Friends_Feed_Parser_RSS_Bridge extends Friends_Feed_Parser {
 	/**
 	 * Gets the bridge name.
 	 *
-	 * @param RSS_Bridge\BridgeAbstract $bridge The bridge.
+	 * @param \RSS_Bridge\BridgeAbstract $bridge The bridge.
 	 *
 	 * @return string  The bridge name.
 	 */
 	public function get_bridge_name( $bridge = null ) {
 		if ( is_null( $bridge ) ) {
-			return __( 'Unknown Parser', 'friends-parser-rss-bridge' );
+			return __( 'Unknown Parser', 'friends' );
 		}
 
 		if ( is_object( $bridge ) ) {
@@ -246,27 +248,27 @@ class Friends_Feed_Parser_RSS_Bridge extends Friends_Feed_Parser {
 		$bridge = $this->get_bridge( $url );
 		if ( false === $bridge ) {
 			// translators: %s is a URL.
-			return new Wp_Error( 'RSS-Bridge Parser', sprintf( __( 'No suitable parser available for %s.', 'friends-parser-rss-bridge' ), $url ) );
+			return new \WP_Error( 'RSS-Bridge Parser', sprintf( __( 'No suitable parser available for %s.', 'friends' ), $url ) );
 		}
 
 		$bridge_params = $bridge->detectParameters( $url );
 		if ( is_null( $bridge_params ) ) {
 			// translators: 1: is a URL, 2: a Parser name.
-			return new Wp_Error( 'RSS-Bridge Parser', sprintf( __( 'Error analyzing %1$s with %2$s.', 'friends-parser-rss-bridge' ), $url, $this->get_bridge_name( $bridge ) ) );
+			return new \WP_Error( 'RSS-Bridge Parser', sprintf( __( 'Error analyzing %1$s with %2$s.', 'friends' ), $url, $this->get_bridge_name( $bridge ) ) );
 		}
 
 		try {
 			$bridge->setDatas( $bridge_params );
 			$bridge->collectData();
-		} catch ( Exception $e ) {
-			return new Wp_Error( 'RSS-Bridge Parser', $e->getMessage() );
+		} catch ( \Exception $e ) {
+			return new \WP_Error( 'RSS-Bridge Parser', $e->getMessage() );
 		}
 
 		$feed_items = array();
 		foreach ( $bridge->getItems() as $item ) {
-			$item = new RSS_Bridge\FeedItem( (object) $item );
+			$item = new \RSS_Bridge\FeedItem( (object) $item );
 
-			$feed_item = new Friends_Feed_Item(
+			$feed_item = new Feed_Item(
 				array(
 					'permalink'   => $item->getURI(),
 					'title'       => $item->getTitle(),

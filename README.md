@@ -16,3 +16,9 @@ This parser is powered by the open source project [RSS Bridge](https://github.co
 The RSS Bridge project provides a set of "bridges" that overcome the gap between web sites' content and a machine readable format, such as RSS. This plugin extends the bridge into the WordPress world, especially to the [Friends Plugin](https://wordpress.org/plugins/friends) which can then be used to follow your friends on platforms that don't provide RSS feeds, or some news sites.
 
 This plugin is meant to be used with the [Friends plugin](https://github.com/akirk/friends/).
+
+
+## Changelog
+
+### 1.1
+- Update for Friends 2.0
