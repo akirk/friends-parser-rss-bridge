@@ -3,7 +3,8 @@
  * Plugin name: Friends Parser RSS Bridge
  * Plugin author: Alex Kirk
  * Plugin URI: https://github.com/akirk/friends-parser-rss-bridge
- * Version: 1.2
+ * Version: 1.3
+ * Requires Plugins: friends
  *
  * Description: Provides the parsing capabilities of RSS Bridge.
  *
@@ -101,6 +102,9 @@ function friends_parser_rss_bridge_about_page( $display_about_friends = false ) 
 		if ( ! class_exists( 'Friends\Feed_Parser_RSS_Bridge' ) ) {
 			if ( ! class_exists( 'Friends\Feed_Parser' ) ) {
 				require_once __DIR__ . '/class-feed-parser.php';
+			}
+			if ( ! class_exists( 'Friends\Feed_Parser_V2' ) ) {
+				require_once __DIR__ . '/class-feed-parser-v2.php';
 			}
 			if ( ! class_exists( 'Friends\Feed_Item' ) ) {
 				require_once __DIR__ . '/class-feed-item.php';
@@ -228,17 +232,17 @@ add_action(
 				'friends',
 				__( 'RSS Bridge', 'friends' ),
 				__( 'RSS Bridge', 'friends' ),
-				'administrator',
+				'edit_private_posts',
 				'friends-rss-bridge',
 				'friends_parser_rss_bridge_about_page'
 			);
 		} else {
-			add_menu_page( 'friends', __( 'Friends', 'friends' ), 'administrator', 'friends', null, 'dashicons-groups', 3 );
+			add_menu_page( 'friends', __( 'Friends', 'friends' ), 'edit_private_posts', 'friends', null, 'dashicons-groups', 3 );
 			add_submenu_page(
 				'friends',
 				__( 'About', 'friends' ),
 				__( 'About', 'friends' ),
-				'administrator',
+				'edit_private_posts',
 				'friends',
 				'friends_parser_rss_bridge_about_page_with_friends_about'
 			);
@@ -249,7 +253,7 @@ add_action(
 				'friends',
 				__( 'RSS Bridge Tester', 'friends' ),
 				__( 'RSS Bridge Tester', 'friends' ),
-				'administrator',
+				'edit_private_posts',
 				'friends-rss-bridge-tester',
 				'friends_parser_rss_bridge_tester'
 			);

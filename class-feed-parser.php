@@ -10,7 +10,6 @@
 namespace Friends;
 
 /**
-/**
  * This class describes a friends feed parser.
  */
 abstract class Feed_Parser {
@@ -77,31 +76,21 @@ abstract class Feed_Parser {
 	}
 
 	/**
-	 * Fetches a feed and returns the processed items.
+	 * Convert relative URLs to absolute ones in incoming content.
 	 *
-	 * Return an array of objects:
+	 * @param      string $html   The html.
+	 * @param      string $url    The url of the feed.
 	 *
-	 *  return array(
-	 *      new Feed_Item array(
-	 *          'permalink' => 'https://url.of/the/feed/item',
-	 *          'title'     => 'Title for the feed item',
-	 *          'content'   => 'Content for the feed item',
-	 *          'date'      => gmdate( 'Y-m-d H:i:s' ),
-	 *          // Optional fields:
-	 *          'comment_count' => 0,
-	 *          'gravatar' => 'https://url/icon.png',
-	 *          'post_status' => 'publish', // A WordPress post status (e.g. publish or private).
-	 *          'post_id' => 123, // the id of the post for better update/duplicate detection.
-	 *          'updated_date' => gmdate( 'Y-m-d H:i:s' ),
-	 *      ),
-	 *  );
-	 *
-	 * @param      string $url        The url.
-	 *
-	 * @return     array            An array of feed items.
+	 * @return     string  The HTML with URLs replaced to their absolute represenation.
 	 */
-	public function fetch_feed( $url ) {
-		return array();
+	public function convert_relative_urls_to_absolute_urls( $html, $url ) {
+		// For now this only converts links and image srcs.
+		return preg_replace_callback(
+			'~(src|href)=(?:"([^"]+)|\'([^\']+))~i',
+			function ( $m ) use ( $url ) {
+				return str_replace( $m[2], Mf2\resolveUrl( $url, $m[2] ), $m[0] );
+			},
+			$html
+		);
 	}
 }
-
