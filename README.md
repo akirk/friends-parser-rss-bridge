@@ -4,7 +4,7 @@ Use a local version of RSS-Bridge to view feeds for web sites that don't provide
 
 **Contributors:** akirk
 **Requires at least:** 5.0
-**Tested up to:** 5.8
+**Tested up to:** 6.1
 **Requires PHP:** 5.2.4
 **License:** [GPLv2 or later](http://www.gnu.org/licenses/gpl-2.0.html)
 **Stable tag:** trunk
